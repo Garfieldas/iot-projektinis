@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+
+  n8n:
+    image: n8nio/n8n
+    ports:
+      - "${N8N_PORT}:5678"
+    env_file:
+      - .env
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+  db:
+    image: postgres:14
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  n8n_data:
+  db_data:
+  grafana_data:
