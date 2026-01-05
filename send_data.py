@@ -4,7 +4,6 @@ import requests
 import random
 import time
 from dataclasses import dataclass
-import json
 
 load_dotenv()
 
@@ -41,7 +40,7 @@ def send_payload(payload: Payload)-> None:
     return: None
     """
     try:
-        response = requests.post(n8n_url, json=json.dumps(payload.__dict__))
+        response = requests.post(n8n_url, json=(payload.__dict__))
         response.raise_for_status()
         print(f"Payload sent successfully: {payload}")
     except requests.RequestException as e:
