@@ -8,7 +8,10 @@ from dataclasses import dataclass
 load_dotenv()
 
 try:
-    n8n_url = os.getenv("N8N_WEBHOOK_URL")
+    if os.getenv("N8N_DEBUG") == "TRUE":
+        n8n_url = os.getenv("N8N_WEBHOOK_TEST_URL")
+    else:
+        n8n_url = os.getenv("N8N_WEBHOOK_PROD_URL")
 except ValueError:
     raise ValueError("In case of fuckup...")
 

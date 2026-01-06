@@ -6,21 +6,39 @@
     {
         "label": "Start Services",
         "type": "shell",
-        "command": "docker-compose up -d",
-        "group": {
-            "kind": "build",
-            "isDefault": true
-        },
+        "command": "bash",
+        "args": [
+            "-lc",
+            "docker-compose up -d && docker-compose ps"
+        ],
         "problemMatcher": []
     },
     {
         "label": "Stop Services",
         "type": "shell",
-        "command": "docker-compose stop",
-        "group": {
-            "kind": "build",
-            "isDefault": false
-        },
+        "command": "bash",
+        "args": [
+            "-lc",
+            "docker-compose stop && docker-compose ps"
+        ],
+        "problemMatcher": []
+
+    },
+    {
+        "label": "Remove and rebuild Services",
+        "type": "shell",
+        "command": "bash",
+        "args": [
+            "-lc",
+            "docker-compose down && docker-compose up -d --build && docker-compose ps"
+        ],
+        "problemMatcher": []
+
+    },
+    {
+        "label": "Show docker compose logs",
+        "type": "shell",
+        "command": "docker-compose logs -f",
         "problemMatcher": []
 
     },
